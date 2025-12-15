@@ -13,6 +13,42 @@ body {
   padding: 0;
   color: #1e293b;
 }
+.floating-input {
+  position: relative;
+  width: 100%;
+}
+
+.floating-input input {
+  width: 100%;
+  padding: 2px 5px;
+  font-size: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  min-height: 36px;
+}
+
+.floating-input label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  color: #64748b;
+  font-size: 14px;
+  background: white;
+  padding: 0 6px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: 0.2s ease;
+}
+
+/* Float label on focus or value */
+.floating-input input:focus + label,
+.floating-input input:not(:placeholder-shown) + label,
+.floating-input input:valid + label {
+  top: -6px;
+  font-size: 12px;
+  color: #2563eb;
+}
+
 
 /* Center login card */
 #loginPage, #appPage {
@@ -241,15 +277,14 @@ footer span { font-weight: 700; background: linear-gradient(to right, #2563eb, #
         </select>
         <div class="error" id="stateError"></div>
       </div>
-      <div>
-  <input
-    id="dos"
-    type="text"
-    placeholder="Date of Service"
-    onfocus="this.type='date'"
-    onblur="if(!this.value)this.type='text'">
+      <div class="floating-input">
+  <input type="date" id="dos" required>
+  <label for="dos">Date of Service</label>
   <div class="error" id="dosError"></div>
 </div>
+
+
+
 
       <div>
         <input id="cpt" placeholder="CPT Code">
