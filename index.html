@@ -161,6 +161,24 @@ footer span { font-weight: 700; background: linear-gradient(to right, #2563eb, #
   header h1 { font-size: 38px; } 
   .header-icons img { width: 32px; height: 32px; } 
 }
+.code-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll-box {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 10px;
+  height: 230px;          /* SAME HEIGHT */
+  overflow-y: auto;
+  background: #f8fafc;
+}
+
+.scroll-box input {
+  margin-bottom: 8px;
+}
+
 </style>
 </head>
 <body>
@@ -203,64 +221,91 @@ footer span { font-weight: 700; background: linear-gradient(to right, #2563eb, #
 
   <div class="card">
     <form id="claimForm">
-      <div>
-        <input id="claimNumber" placeholder="Claim Number">
-        <div class="error" id="claimNumberError"></div>
-      </div>
-      <div>
-        <input id="memberId" placeholder="Member ID">
-        <div class="error" id="memberIdError"></div>
-      </div>
-      <div>
-        <input id="providerTaxId" placeholder="Provider Tax ID">
-        <div class="error" id="providerTaxIdError"></div>
-      </div>
-      <div>
-        <select id="state">
-          <option value="">Select Provider State</option>
-          <option value="ALABAMA">Alabama</option>
-          <option value="ARKANSAS">Arkansas</option>
-          <option value="COLORADO">Colorado</option>
-          <option value="DELAWARE">Delaware</option>
-          <option value="DISTRICT OF COLUMBIA">District of Columbia</option>
-          <option value="GEORGIA">Georgia</option>
-          <option value="LOUISIANA">Louisiana</option>
-          <option value="MARYLAND">Maryland</option>
-          <option value="MISSISSIPPI">Mississippi</option>
-          <option value="NEW JERSEY">New Jersey</option>
-          <option value="NEW MEXICO">New Mexico</option>
-          <option value="NORTH CAROLINA">North Carolina</option>
-          <option value="OHIO">Ohio</option>
-          <option value="OKLAHOMA">Oklahoma</option>
-          <option value="PENNSYLVANIA">Pennsylvania</option>
-          <option value="SOUTH CAROLINA">South Carolina</option>
-          <option value="TENNESSEE">Tennessee</option>
-          <option value="TEXAS">Texas</option>
-          <option value="VIRGINIA">Virginia</option>
-          <option value="WEST VIRGINIA">West Virginia</option>
-        </select>
-        <div class="error" id="stateError"></div>
-      </div>
-      <div>
-  <input
-    id="dos"
-    type="text"
-    placeholder="Date of Service"
-    onfocus="this.type='date'"
-    onblur="if(!this.value)this.type='text'">
-  <div class="error" id="dosError"></div>
+  <div>
+    <input id="claimNumber" placeholder="Claim Number">
+    <div class="error" id="claimNumberError"></div>
+  </div>
+
+  <div>
+    <input id="memberId" placeholder="Member ID">
+    <div class="error" id="memberIdError"></div>
+  </div>
+
+  <!-- Provider Tax ID REMOVED -->
+
+  <div>
+    <select id="state">
+      <option value="">Select Provider State</option>
+      <option value="ALABAMA">Alabama</option>
+      <option value="ARKANSAS">Arkansas</option>
+      <option value="COLORADO">Colorado</option>
+      <option value="DELAWARE">Delaware</option>
+      <option value="DISTRICT OF COLUMBIA">District of Columbia</option>
+      <option value="GEORGIA">Georgia</option>
+      <option value="LOUISIANA">Louisiana</option>
+      <option value="MARYLAND">Maryland</option>
+      <option value="MISSISSIPPI">Mississippi</option>
+      <option value="NEW JERSEY">New Jersey</option>
+      <option value="NEW MEXICO">New Mexico</option>
+      <option value="NORTH CAROLINA">North Carolina</option>
+      <option value="OHIO">Ohio</option>
+      <option value="OKLAHOMA">Oklahoma</option>
+      <option value="PENNSYLVANIA">Pennsylvania</option>
+      <option value="SOUTH CAROLINA">South Carolina</option>
+      <option value="TENNESSEE">Tennessee</option>
+      <option value="TEXAS">Texas</option>
+      <option value="VIRGINIA">Virginia</option>
+      <option value="WEST VIRGINIA">West Virginia</option>
+    </select>
+    <div class="error" id="stateError"></div>
+  </div>
+
+  <div>
+    <input
+      id="dos"
+      type="text"
+      placeholder="Date of Service"
+      onfocus="this.type='date'"
+      onblur="if(!this.value)this.type='text'">
+    <div class="error" id="dosError"></div>
+  </div>
+
+  <!-- CPT CODES -->
+<div class="code-box">
+  <label><b>CPT Codes</b></label>
+  <div class="scroll-box">
+    <input class="cpt" placeholder="CPT Code 1">
+    <input class="cpt" placeholder="CPT Code 2">
+    <input class="cpt" placeholder="CPT Code 3">
+    <input class="cpt" placeholder="CPT Code 4">
+    <input class="cpt" placeholder="CPT Code 5">
+  </div>
+  <div class="error" id="cptError"></div>
 </div>
 
-      <div>
-        <input id="cpt" placeholder="CPT Code">
-        <div class="error" id="cptError"></div>
-      </div>
-      <div>
-        <input id="diag" placeholder="Diagnosis Code">
-        <div class="error" id="diagError"></div>
-      </div>
-      <button type="button" class="app-btn" onclick="validateClaims()">Validate Claims</button>
-    </form>
+<!-- DIAGNOSIS CODES -->
+<div class="code-box">
+  <label><b>Diagnosis Codes</b></label>
+  <div class="scroll-box">
+    <input class="diag" placeholder="Diagnosis Code 1">
+    <input class="diag" placeholder="Diagnosis Code 2">
+    <input class="diag" placeholder="Diagnosis Code 3">
+    <input class="diag" placeholder="Diagnosis Code 4">
+    <input class="diag" placeholder="Diagnosis Code 5">
+    <input class="diag" placeholder="Diagnosis Code 6">
+    <input class="diag" placeholder="Diagnosis Code 7">
+    <input class="diag" placeholder="Diagnosis Code 8">
+    <input class="diag" placeholder="Diagnosis Code 9">
+    <input class="diag" placeholder="Diagnosis Code 10">
+  </div>
+  <div class="error" id="diagError"></div>
+</div>
+
+  <button type="button" class="app-btn" onclick="validateClaims()">
+    Validate Claims
+  </button>
+</form>
+
     <div id="output"></div>
   </div>
 
@@ -2622,72 +2667,97 @@ const EXCEL_POLICY_DATA = [
     "PROVIDER STATE": null
   }
 ];
-function validateClaims() {
+    function validateClaims() {
   document.querySelectorAll('.error').forEach(e => e.innerText = '');
   const claimNumber = document.getElementById("claimNumber").value.trim();
   const memberId = document.getElementById("memberId").value.trim();
-  const providerTaxId = document.getElementById("providerTaxId").value.trim();
   const dos = document.getElementById("dos").value.trim();
-  const cpt = document.getElementById("cpt").value.trim();
-  const diag = document.getElementById("diag").value.trim();
-  const state = document.getElementById("state").value.trim();
-  let valid = true;
-  if(!claimNumber){ document.getElementById("claimNumberError").innerText="Required"; valid=false; }
-  if(!memberId){ document.getElementById("memberIdError").innerText="Required"; valid=false; }
-  if(!providerTaxId){ document.getElementById("providerTaxIdError").innerText="Required"; valid=false; }
-  if(!state){ document.getElementById("stateError").innerText="Required"; valid=false; }
-  if(!dos){ document.getElementById("dosError").innerText="Required"; valid=false; }
-  if(!cpt){ document.getElementById("cptError").innerText="Required"; valid=false; }
-  if(!diag){ document.getElementById("diagError").innerText="Required"; valid=false; }
-  if(!valid) return;
+const cptList = [...document.querySelectorAll(".cpt")]
+  .map(i => i.value.trim())
+  .filter(Boolean);
 
-  const cptList = cpt.split(',').map(e=>e.trim());
-  const diagList = diag.split(',').map(e=>e.trim().toUpperCase());
-  const results = [];
-  cptList.forEach(cptItem=>{
-    diagList.forEach(diagItem=>{
-      const policy = EXCEL_POLICY_DATA.find(p=>p["CPT"].trim()===cptItem);
-      let status="No Policy Found";
-      if(policy){
-        const covered = policy["COVERED DIAGNOSIS CODE"] ? policy["COVERED DIAGNOSIS CODE"].split(',').map(d=>d.trim().toUpperCase()):[];
-        const notCovered = policy["NOT COVERED DIAGNOSIS CODE"] ? policy["NOT COVERED DIAGNOSIS CODE"].split(',').map(d=>d.trim().toUpperCase()):[];
-        if(covered.includes(diagItem) || (covered.length===0 && notCovered.length===0)){ status="BILLED CORRECTLY"; }
-        else if(notCovered.includes(diagItem)){ status="DENIED"; }
-        else{ status="DENIED"; }
-      }
-      results.push({ClaimNumber:claimNumber,MemberID:memberId,ProviderTaxID:providerTaxId,DateOfService:dos,CPT:cptItem,Diagnosis:diagItem,ClaimStatus:status,PolicyType:policy?.["LCD/NCD"]||"-",ArticleID:policy?.["ARTICLE ID"]||"-",PolicyLink:policy?.["POLICY LINK"]||"-"});
-    });
-  });
-  renderTable(results);
+const diagList = [...document.querySelectorAll(".diag")]
+  .map(i => i.value.trim().toUpperCase())
+  .filter(Boolean);
+
+if (cptList.length === 0) {
+  document.getElementById("cptError").innerText = "At least one CPT required";
+  return;
 }
-function renderTable(results){
-  let html = '';
+if (diagList.length === 0) {
+  document.getElementById("diagError").innerText = "At least one Diagnosis required";
+  return;
+}
 
-  results.forEach((r, index) => {
-    const css = (r.ClaimStatus === "DENIED" || r.ClaimStatus === "No Policy Found")
-      ? "denied"
-      : "approved";
+  const state = document.getElementById("state").value.trim();
+  let claimDenied = false;
+const results = [];
+
+cptList.forEach(cpt => {
+  const policy = EXCEL_POLICY_DATA.find(p => p.CPT === cpt);
+  let cptStatus = "BILLED CORRECTLY";
+  let reason = "Covered as per policy";
+
+  if (!policy) {
+    cptStatus = "DENIED";
+    reason = `CPT ${cpt} has no policy available`;
+    claimDenied = true;
+  } else {
+    const notCovered = policy["NOT COVERED DIAGNOSIS CODE"]
+      ?.split(",")
+      .map(d => d.trim().toUpperCase()) || [];
+
+    const deniedDiags = diagList.filter(d => notCovered.includes(d));
+
+    if (deniedDiags.length > 0) {
+      cptStatus = "DENIED";
+      reason = `CPT ${cpt} should not be billed with Diagnosis code(s): ${deniedDiags.join(", ")}`;
+      claimDenied = true;
+    }
+  }
+
+  results.push({
+    CPT: cpt,
+    Status: cptStatus,
+    Reason: reason,
+    PolicyType: policy?.["LCD/NCD"] || "-",
+    ArticleID: policy?.["ARTICLE ID"] || "-",
+    PolicyLink: policy?.["POLICY LINK"] || "-"
+  });
+});
+
+
+const finalClaimStatus = claimDenied ? "CLAIM DENIED" : "CLAIM BILLED CORRECTLY";
+renderTable(results, finalClaimStatus);
+}
+function renderTable(results, finalStatus) {
+  let html = "";
+
+  results.forEach(r => {
+    const css = r.Status === "DENIED" ? "denied" : "approved";
 
     html += `
     <table class="${css}" style="margin-bottom:20px;">
-      <tr><th>Claim Number</th><td>${r.ClaimNumber}</td></tr>
-      <tr><th>Member ID</th><td>${r.MemberID}</td></tr>
-      <tr><th>Provider Tax ID</th><td>${r.ProviderTaxID}</td></tr>
-      <tr><th>Date of Service</th><td>${r.DateOfService}</td></tr>
       <tr><th>CPT</th><td>${r.CPT}</td></tr>
-      <tr><th>Diagnosis</th><td>${r.Diagnosis}</td></tr>
-      <tr><th>Claim Status</th><td><strong>${r.ClaimStatus}</strong></td></tr>
+      <tr><th>Status</th><td><b>${r.Status}</b></td></tr>
+      <tr><th>Reason</th><td>${r.Reason}</td></tr>
       <tr><th>Policy Type</th><td>${r.PolicyType}</td></tr>
       <tr><th>Article ID</th><td>${r.ArticleID}</td></tr>
-      <tr>
-        <th>Policy Link</th>
+      <tr><th>Policy Link</th>
         <td>${r.PolicyLink !== "-" ? `<a href="${r.PolicyLink}" target="_blank">View Policy</a>` : "-"}</td>
       </tr>
     </table>`;
   });
 
+  html += `
+  <table>
+    <tr><th>FINAL CLAIM STATUS</th>
+    <td><b>${finalStatus}</b></td></tr>
+  </table>`;
+
   document.getElementById("output").innerHTML = html;
-}</script>
+}
+</script>
 
 </body>
 </html>
