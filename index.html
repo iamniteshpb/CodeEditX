@@ -2763,7 +2763,7 @@ cptList.forEach(cpt => {
 
     if (deniedDiags.length > 0) {
       cptStatus = "DENIED";
-      reason = `Based on CMS guidelines, the diagnosis code billed with CPT ${cpt} does not meet medical necessity requirements.`;
+      reason = `Diagnosis billed with CPT ${cpt} does not meet CMS medical necessity criteria.`;
       claimDenied = true;
     }
   }
@@ -2837,4 +2837,5 @@ function renderTable(results) {
 
 </body>
 </html>
+
 
