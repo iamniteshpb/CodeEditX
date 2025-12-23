@@ -13,6 +13,48 @@ body {
   padding: 0;
   color: #1e293b;
 }
+.status-denied {
+  background: #fee2e2;
+  color: #7f1d1d;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.reason-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.reason-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.reason-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #111827;
+}
+
+.policy-link {
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.no-denial {
+  font-weight: 600;
+  color: #166534;
+  background: #dcfce7;
+  padding: 10px 14px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
 
 /* Center login card */
 #loginPage, #appPage {
@@ -22,6 +64,16 @@ body {
   min-height: 100vh;
   padding: 15px;
 }
+.reason-cell {
+  line-height: 1.6;
+  font-size: 13px;
+  white-space: normal;
+}
+.no-denial {
+  font-weight: bold;
+  color: green;
+}
+
 
 /* Login Card */
 .login-card {
@@ -2730,33 +2782,57 @@ cptList.forEach(cpt => {
 const finalClaimStatus = claimDenied ? "CLAIM DENIED" : "CLAIM BILLED CORRECTLY";
 renderTable(results, finalClaimStatus);
 }
-function renderTable(results, finalStatus) {
+function renderTable(results) {
+
+  const deniedResults = results.filter(r => r.Status === "DENIED");
+
   let html = "";
 
-  results.forEach(r => {
-    const css = r.Status === "DENIED" ? "denied" : "approved";
-
+  if (deniedResults.length > 0) {
     html += `
-    <table class="${css}" style="margin-bottom:20px;">
-      <tr><th>CPT</th><td>${r.CPT}</td></tr>
-      <tr><th>Status</th><td><b>${r.Status}</b></td></tr>
-      <tr><th>Reason</th><td>${r.Reason}</td></tr>
-      <tr><th>Policy Type</th><td>${r.PolicyType}</td></tr>
-      <tr><th>Article ID</th><td>${r.ArticleID}</td></tr>
-      <tr><th>Policy Link</th>
-        <td>${r.PolicyLink !== "-" ? `<a href="${r.PolicyLink}" target="_blank">View Policy</a>` : "-"}</td>
-      </tr>
-    </table>`;
-  });
+      <table class="denied">
+        <tr>
+          <th>CPT Code</th>
+          <th>Claim Decision</th>
+          <th>Denial Explanation</th>
+          <th>Policy Category</th>
+          <th>Policy Reference</th>
+          <th>Documentation</th>
+        </tr>
+    `;
 
-  html += `
-  <table>
-    <tr><th>FINAL CLAIM STATUS</th>
-    <td><b>${finalStatus}</b></td></tr>
-  </table>`;
+    deniedResults.forEach(r => {
+      html += `
+        <tr>
+          <td>${r.CPT}</td>
+          <td><span class="status-denied">${r.Status}</span></td>
+          <td>
+            <div class="reason-box">
+              <span class="reason-title">Reason for Denial</span>
+              <span class="reason-text">${r.Reason}</span>
+            </div>
+          </td>
+          <td>${r.PolicyType}</td>
+          <td>${r.ArticleID}</td>
+          <td>
+            ${r.PolicyLink !== "-" 
+              ? `<a href="${r.PolicyLink}" target="_blank" class="policy-link">View Policy</a>` 
+              : "-"}
+          </td>
+        </tr>
+      `;
+    });
+
+    html += `</table>`;
+  } else {
+    html = `<p class="no-denial">✔ All submitted CPT codes comply with policy guidelines</p>`;
+  }
 
   document.getElementById("output").innerHTML = html;
 }
+
+
+
 </script>
 
 </body>
