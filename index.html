@@ -2768,14 +2768,21 @@ cptList.forEach(cpt => {
     }
   }
 
-  results.push({
-    CPT: cpt,
-    Status: cptStatus,
-    Reason: reason,
-    PolicyType: policy?.["LCD/NCD"] || "-",
-    ArticleID: policy?.["ARTICLE ID"] || "-",
-    PolicyLink: policy?.["POLICY LINK"] || "-"
-  });
+const policyState = policy?.["PROVIDER STATE"];
+const stateMatch =
+  !policyState || policyState === state
+    ? "Claim submitted within the policy’s applicable state."
+    : "Provider state does not align with the applicable policy.";
+
+results.push({
+  CPT: cpt,
+  Status: cptStatus,
+  Reason: reason,
+  PolicyType: policy?.["LCD/NCD"] || "-",
+  ArticleID: policy?.["ARTICLE ID"] || "-",
+  PolicyLink: policy?.["POLICY LINK"] || "-",
+  StateMatch: stateMatch
+});
 });
 
 
@@ -2795,6 +2802,7 @@ function renderTable(results) {
           <th>CPT Code</th>
           <th>Claim Decision</th>
           <th>Denial Explanation</th>
+          <th>Provider State Match</th>
           <th>Policy Category</th>
           <th>Policy Reference</th>
           <th>Documentation</th>
@@ -2811,6 +2819,14 @@ function renderTable(results) {
               <span class="reason-text">${r.Reason}</span>
             </div>
           </td>
+          <td>
+            <div class="reason-box">
+              <span class="reason-text">
+              ${r.StateMatch}
+               </span>
+            </div>
+</td>
+
           <td>${r.PolicyType}</td>
           <td>${r.ArticleID}</td>
           <td>
@@ -2836,6 +2852,7 @@ function renderTable(results) {
 
 </body>
 </html>
+
 
 
 
